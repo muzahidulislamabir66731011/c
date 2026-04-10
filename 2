@@ -7,7 +7,6 @@ int main() {
     while ((c = getchar()) != EOF) {
         if (c == ' ') {
             if (previous) {
-                // skip duplicate space
             } else {
                 putchar(c);
                 previous = 1;
