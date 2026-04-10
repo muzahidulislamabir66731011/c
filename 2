@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+int main() {
+    int c;
+    int previous = 0;
+    
+    while ((c = getchar()) != EOF) {
+        if (c == ' ') {
+            if (previous) {
+                // skip duplicate space
+            } else {
+                putchar(c);
+                previous = 1;
+            }
+        } else {
+            putchar(c);
+            previous = 0;
+        }
+    }
+    
+    return 0;
+}
