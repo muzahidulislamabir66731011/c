@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+int blank = 0;
+int tab = 0;
+int newline = 0;
+int c;
+
+int main() {
+    while ((c = getchar()) != EOF) {
+        if (c == ' ') {
+            blank++;
+        }
+        if (c == '\t') {
+            tab++;
+        }
+        if (c == '\n') {
+            newline++;
+        }
+    }
+    printf(" blanks: %d, tabs: %d, newlines: %d\n", blank, tab, newline);
+    return 0;
+}
