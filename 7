@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+#define LINEIN 1
+
+#define LINEOUT 0
+
+int main()
+{
+    int c,i,j;
+    int a = 0;
+    int nletter[10] = {0};
+    int line = LINEOUT;
+    int word_count = 0;
+    while ((c = getchar()) != EOF) {
+        if (c==' '||c=='\t'||c=='\n')
+        {
+            line = LINEOUT;
+            word_count++;
+            a++;
+        }else {
+            line =LINEIN;
+            if(a<10){
+
+                nletter[a]++;
+
+            }
+        }
+        
+    }
+
+    if (line == LINEIN) {
+        word_count++;
+    }
+
+    int highestNumber = 0;
+    for (i = 0; i < word_count; i++) {
+        if (nletter[i] > highestNumber) {
+            highestNumber = nletter[i];
+        }
+    }
+
+    for (i = highestNumber; i > 0; i--) {
+        for (j = 0; j < word_count; j++) {
+            if (nletter[j] >= i)
+                printf("# ");
+            else
+                printf("  ");
+        }
+        printf("\n");
+    }
+
+    for (i = 1; i <= word_count; i++) {
+        printf("%d ", i);
+    }
+    printf("\n");
+    return 0;
+}
