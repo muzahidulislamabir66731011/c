@@ -1,0 +1,15 @@
+#include <stdio.h>
+int main()
+{
+    int i;
+    int c = 10;
+    for (i = 0; i < 10 && c>i; i++,--c)
+    {
+        puts("This is for i");
+        printf("%d\n",i);
+        puts("This is for C");
+        printf("%d\n",c);
+    }
+    
+    return 0;
+}
