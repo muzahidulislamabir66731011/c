@@ -1,0 +1,16 @@
+#include <stdio.h>
+int main()
+{
+    int c, i= 0;
+    char line[1000];
+    while ((c = getchar()) != EOF) {
+        line[i] = c;
+        i++;
+        
+    }
+    line[i] = '\0';
+    
+    puts(line);
+
+    return 0;
+}
