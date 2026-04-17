@@ -1,0 +1,31 @@
+#include <stdio.h>
+#define TABSTOp 8
+
+int main( ){
+
+    int c;
+    int pos = 0;
+    while ((c = getchar()) != EOF)
+    {
+        if (c = '\t')
+        {
+            int next_tab = ((pos/TABSTOp)+1)* TABSTOp;
+            int spaces = next_tab - pos;
+            for (int i = 0; i < spaces; i++)
+            {
+                putchar(' ');
+            }
+            
+            pos=next_tab;
+        }else if(c == '\n'){
+            putchar(c);
+            pos=0;
+        }
+        else
+        {
+            putchar(c);
+            pos++;
+        }
+    }
+    return 0;
+}
