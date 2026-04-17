@@ -1,0 +1,73 @@
+#include <stdio.h>
+#define TABSTOP 8
+int main()
+{
+    int c;
+    int pos = 0;
+    int spaces = 0;
+    while ((c = getchar()) != EOF) {
+        if (c == ' ')
+        {
+            spaces++;
+
+        } else {
+            while(spaces>0){
+                int next_tab = ((pos / TABSTOP) + 1) * TABSTOP;
+                int dist_to_tab = next_tab - pos;
+
+                if (spaces>= dist_to_tab)
+                {
+                    putchar('\t');
+                    spaces -= dist_to_tab;
+                    pos = next_tab;
+                } else
+                {
+                    for ( int i = 0; i < spaces; i++)
+                    {
+                        putchar(' ');
+                    }
+                    pos+= spaces;
+                    spaces =0;
+                }
+            }
+            if (c == '\t'){
+                putchar('\t');
+                pos = ((pos/TABSTOP)+1) * TABSTOP;
+            } else if (c== '\n')
+            {
+                putchar(c);
+                pos = 0;
+            }else
+            {
+                putchar(c);
+                pos++;
+            }
+        }
+        
+    }
+
+    while (spaces>0)
+    {
+        int next_tab = ((pos/TABSTOP)+1)*TABSTOP;
+        int dist_to_tab = next_tab - pos;
+
+        if(spaces>=dist_to_tab){
+            putchar('\t');
+            pos=next_tab;
+            spaces -= dist_to_tab;
+        }else
+        {
+            for (int i = 0; i < spaces; i++)
+            {
+                putchar(' ');
+            }
+            spaces=0;
+            
+        }
+        
+
+
+    }
+    
+    return 0;
+}
