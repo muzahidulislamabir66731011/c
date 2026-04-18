@@ -1,0 +1,86 @@
+#include <stdio.h>
+
+#define FOLD_COL 80
+
+#define TAB_SIZE 8
+
+int main(void)
+{
+    int c;                  
+    int col;                
+    int last_blank;         
+    int i;
+    char line[FOLD_COL + 1]; 
+    
+    col = 0;
+    last_blank = -1;
+    
+    while ((c = getchar()) != EOF) {
+        if (c == '\n') {
+
+            for (i = 0; i < col && i < FOLD_COL; i++)
+                putchar(line[i]);
+            putchar('\n');
+
+            col = 0;
+            last_blank = -1;
+        }
+        else {
+            if (col < FOLD_COL)
+                line[col] = c;
+
+            if (c == '\t') {
+                col += (TAB_SIZE - (col % TAB_SIZE));
+                last_blank = col - 1;
+            } else if (c == ' ') {
+                last_blank = col;
+                col++;
+            } else {
+                col++;
+            }
+        }
+        
+        
+        if (col >= FOLD_COL) {
+            int fold_pos;
+            
+            
+            if (last_blank >= 0) {
+               
+                fold_pos = last_blank;
+            } else {
+                
+                fold_pos = FOLD_COL - 1;
+            }
+            
+            
+            for (i = 0; i <= fold_pos && i < FOLD_COL; i++)
+                putchar(line[i]);
+            putchar('\n');
+            
+            if (last_blank >= 0) {
+                int j = 0;
+                for (i = last_blank + 1; i < col && i < FOLD_COL; i++, j++)
+                    line[j] = line[i];
+                col = j;
+            } else {
+                int j = 0;
+                for (i = fold_pos + 1; i < FOLD_COL; i++, j++)
+                    line[j] = line[i];
+                col = j;
+            }
+            
+            last_blank = -1;
+            
+            for (i = 0; i < col; i++) {
+                if (line[i] == ' ' || line[i] == '\t')
+                    last_blank = i;
+            }
+        }
+    }
+    
+    for (i = 0; i < col; i++)
+        putchar(line[i]);
+    
+    return 0;
+}
