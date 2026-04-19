@@ -1,0 +1,98 @@
+#include <stdio.h>
+
+#define MAX 1000
+
+int main(void) {
+    int c;
+    int top = 0;
+    char stack[MAX];
+
+    enum { NORMAL, STRING, CHAR, BLOCK, LINE } state = NORMAL;
+
+    while ((c = getchar()) != EOF) {
+
+        if (state == NORMAL) {
+
+            if (c == '"') {
+                state = STRING;
+            }
+            else if (c == '\'') {
+                state = CHAR;
+            }
+            else if (c == '/' ) {
+                int next = getchar();
+
+                if (next == '*') {
+                    state = BLOCK;
+                }
+                else if (next == '/') {
+                    state = LINE;
+                }
+                else {
+                    if (c == '(' || c == '{' || c == '[') {
+                        stack[top++] = c;
+                    }
+                    else if (c == ')' || c == '}' || c == ']') {
+                        if (top == 0) {
+                            printf("Error: unmatched closing %c\n", c);
+                        } else {
+                            char open = stack[--top];
+
+                            if ((c == ')' && open != '(') ||
+                                (c == '}' && open != '{') ||
+                                (c == ']' && open != '[')) {
+                                printf("Error: mismatch %c and %c\n", open, c);
+                            }
+                        }
+                    }
+
+                    ungetc(next, stdin);
+                }
+            }
+            else {
+                if (c == '(' || c == '{' || c == '[') {
+                    stack[top++] = c;
+                }
+                else if (c == ')' || c == '}' || c == ']') {
+                    if (top == 0) {
+                        printf("Error: unmatched closing %c\n", c);
+                    } else {
+                        char open = stack[--top];
+
+                        if ((c == ')' && open != '(') ||
+                            (c == '}' && open != '{') ||
+                            (c == ']' && open != '[')) {
+                            printf("Error: mismatch %c and %c\n", open, c);
+                        }
+                    }
+                }
+            }
+        }
+
+        else if (state == STRING) {
+            if (c == '\\') getchar();
+            else if (c == '"') state = NORMAL;
+        }
+
+        else if (state == CHAR) {
+            if (c == '\\') getchar();
+            else if (c == '\'') state = NORMAL;
+        }
+
+        else if (state == BLOCK) {
+            if (c == '*') {
+                if (getchar() == '/') state = NORMAL;
+            }
+        }
+
+        else if (state == LINE) {
+            if (c == '\n') state = NORMAL;
+        }
+    }
+
+    if (top != 0) {
+        printf("Error: unmatched opening symbols\n");
+    }
+
+    return 0;
+}
