@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+int main(){
+    int c,next;
+    enum {
+        NORMAL,
+        STRING,
+        CHARACTER,
+        BLOCK,
+        LINE
+    }
+    state = NORMAL;
+    while ((c=getchar()) != EOF)
+    {
+        if (state == NORMAL)
+        {
+            if ( c == '"'){
+                putchar(c);
+                state = STRING;
+            }else if(c == '\''){
+                putchar(c);
+                state = CHARACTER;
+            }else if(c =='/'){
+                next = getchar();
+                if (next == '*')
+                {
+                    state = BLOCK;
+                }else if('/'){
+                    state = LINE;
+                }else
+                {
+                    putchar(c);
+                    putchar(next);
+                }
+            }else {
+                putchar(c);
+            }
+        }else if (state == STRING)
+        {
+            putchar(c);
+            if (c== '\\')
+            {
+                putchar(getchar());
+            } else if ('"')
+            {
+                state = NORMAL;
+            }
+        }else if (state == CHARACTER)
+        {
+            putchar(c);
+            if (c == '\\'){
+                putchar(getchar());
+            }else if( c == '"'){
+                state = NORMAL;
+            }
+        }else if (state == BLOCK)
+        {
+            if (c == '*')
+            {
+                if((c = getchar()) == '/'){
+                    state = NORMAL;
+                }
+            }
+        }else if (state == LINE)
+        {
+            if(c == '\n'){
+                putchar(c);
+                state = NORMAL;
+            }
+        }
+    }
+    
+    return 0;
+}
