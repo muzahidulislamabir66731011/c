@@ -1,0 +1,16 @@
+#include <stdio.h>
+#define MAXLINE 6
+int main(){
+    char line[MAXLINE] =("ancde");
+    int a;
+    for (int i = 0, j = MAXLINE -2 ; i != j ; i++ , j--)
+    {
+        a = line[i];
+        line[i] = line[j];
+        line[j] = a;
+    }
+    line[MAXLINE - 1] = '\0';
+    
+    puts(line);
+    return 0;
+}
