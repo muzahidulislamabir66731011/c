@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+int _isdigit(int c)
+{
+    if (c >= '0' && c <= '9')
+        return 1;
+    else
+        return 0;
+}
+
+int _isspace(int c)
+{
+    if (c == ' '  ||
+        c == '\t' ||
+        c == '\n' ||
+        c == '\r' ||
+        c == '\f' ||
+        c == '\v')
+        return 1;
+    else
+        return 0;
+}
+
+int atoi_(char s[])
+{
+    int i = 0;
+    int n = 0;
+    int sign;
+
+    while (_isspace(s[i])) {
+        i++;
+    }
+
+    sign = (s[i] == '-') ? -1 : 1;
+
+    if (s[i] == '+' || s[i] == '-') {
+        i++;
+    }
+
+    while (_isdigit(s[i])) {
+        n = 10 * n + (s[i] - '0');
+        i++;
+    }
+
+    return sign * n;
+}
