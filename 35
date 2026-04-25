@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <limits.h>
+#include <float.h>
+
+int main(void)
+{
+    printf("* ===== FROM HEADERS ===== *\n\n");
+
+    printf("CHAR   %d %d\n", CHAR_MIN, CHAR_MAX);
+    printf("UCHAR  0 %u\n\n", UCHAR_MAX);
+
+    printf("SHORT  %d %d\n", SHRT_MIN, SHRT_MAX);
+    printf("USHORT 0 %u\n\n", USHRT_MAX);
+
+    printf("INT    %d %d\n", INT_MIN, INT_MAX);
+    printf("UINT   0 %u\n\n", UINT_MAX);
+
+    printf("LONG   %ld %ld\n", LONG_MIN, LONG_MAX);
+    printf("ULONG  0 %lu\n\n", ULONG_MAX);
+
+    printf("FLOAT  %e %e\n", FLT_MIN, FLT_MAX);
+    printf("DOUBLE %e %e\n\n", DBL_MIN, DBL_MAX);
+
+
+    printf("* ===== COMPUTED VALUES ===== *\n\n");
+
+    unsigned char uc = 0;
+    while (++uc > 0)
+        ;
+    printf("uchar max (computed) %u\n", uc - 1);
+
+    char c = 1;
+    while (c > 0)
+        c++;
+    printf("char max (computed) %d\n", c - 1);
+
+    c = -1;
+    while (c < 0)
+        c--;
+    printf("char min (computed) %d\n\n", c + 1);
+
+    int i = 1;
+    while (i > 0)
+        i++;
+    printf("int max (computed) %d\n", i - 1);
+
+    i = -1;
+    while (i < 0)
+        i--;
+    printf("int min (computed) %d\n\n", i + 1);
+
+    long l = 1;
+    while (l > 0)
+        l++;
+    printf("long max (computed) %ld\n", l - 1);
+
+    l = -1;
+    while (l < 0)
+        l--;
+    printf("long min (computed) %ld\n", l + 1);
+
+    return 0;
+}
