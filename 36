@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <limits.h>
+#include <float.h>
+#include <stdint.h>
+
+unsigned long ulimit(void) {
+    return ~0UL;
+}
+
+long slimit_max(void) {
+    unsigned long u = ~0UL;
+    return (long)(u >> 1);
+}
+
+long slimit_min(void) {
+    return -slimit_max() - 1;
+}
+
+float float_max(void)
+{
+    union {
+        uint32_t u;
+        float f;
+    } x;
+
+    x.u = 0x7f7fffff;
+    return x.f;
+}
+
+float float_min(void)
+{
+    union {
+        uint32_t u;
+        float f;
+    } x;
+
+    x.u = 0xff7fffff;
+    return x.f;
+}
+
+int main(void) {
+
+    printf("=== FROM HEADERS ===\n\n");
+
+    printf("LONG   : %ld to %ld\n", LONG_MIN, LONG_MAX);
+    printf("ULONG  : 0 to %lu\n", ULONG_MAX);
+
+    printf("\nFLOAT  : %e to %e\n", FLT_MIN, FLT_MAX);
+
+    printf("\n=== BY DIRECT COMPUTATION ===\n\n");
+
+    printf("Unsigned long max (computed): %lu\n", ulimit());
+    printf("Signed long max (computed): %ld\n", slimit_max());
+    printf("Signed long min (computed): %ld\n", slimit_min());
+
+    printf("Float max (approx): %e\n", float_max());
+    printf("Float min positive (approx): %e\n", float_min());
+
+    return 0;
+}
