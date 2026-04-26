@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+int main() {
+    int a[100], n, x;
+    int i;
+
+
+    i = 0;
+    for (;;) {
+        if (i >= n)
+            break;
+        else if (a[i] == x)
+            break;
+        i++;
+    }
+
+    printf("i = %d\n", i);
+    return 0;
+}
