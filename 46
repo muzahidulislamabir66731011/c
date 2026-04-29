@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+unsigned setbits(unsigned x, int p, int n, unsigned y) {
+    unsigned mask = ~(~0u << n);
+    unsigned ybits = y & mask;
+    unsigned shifted_mask = mask << (p + 1 - n);
+    x &= ~shifted_mask;
+    x |= ybits << (p + 1 - n);
+    return x;
+}
+
+int main() {
+    unsigned x = 0b10101010;
+    unsigned y = 0b00000111;
+    int p = 5;
+    int n = 3;
+
+    unsigned result = setbits(x, p, n, y);
+    printf("%u\n", result);
+    return 0;
+}
