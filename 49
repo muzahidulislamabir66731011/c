@@ -1,0 +1,18 @@
+#include <stdio.h>
+int binsearch(int x, int v[], int n) {
+    int low = 0;
+    int high = n - 1;
+    int mid;
+    while (low < high) {
+        mid = (low + high) / 2;
+
+        if (x <= v[mid])
+            high = mid;
+        else
+            low = mid + 1;
+    }
+    if (n > 0 && v[low] == x)
+        return low;
+    else
+        return -1;
+}
