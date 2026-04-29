@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <limits.h>
+
+unsigned int wordsize(void) {
+    return sizeof(unsigned int) * CHAR_BIT;
+}
+
+unsigned int rightrot(unsigned int x, unsigned int n) {
+    unsigned int w = wordsize();
+
+    n = n % w;
+
+    if (n == 0)
+        return x;
+
+    return (x >> n) | (x << (w - n));
+}
+
+int main(void) {
+    unsigned int x = 29;  
+    unsigned int n = 2;
+
+    printf("%u\n", rightrot(x, n));
+    return 0;
+}
