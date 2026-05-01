@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+void reverse(char s[]) {
+    int i = 0, j = 0;
+    char c;
+
+    while (s[j] != '\0')
+        j++;
+    j--;
+
+    while (i < j) {
+        c = s[i];
+        s[i] = s[j];
+        s[j] = c;
+        i++;
+        j--;
+    }
+}
+
+void itoa(int n, char s[]) {
+    int i = 0;
+    int sign = n;
+
+    do {
+        int digit = n % 10;
+        if (digit < 0)
+            digit = -digit;
+        s[i++] = digit + '0';
+        n /= 10;
+    } while (n != 0);
+
+    if (sign < 0)
+        s[i++] = '-';
+
+    s[i] = '\0';   
+    reverse(s);
+}
+
+int main(void) {
+    char s1[50];
+    char s2[50];
+
+    int a = 12345;
+    int b = -12345;
+    int c = -2147483648;  // typical INT_MIN
+
+    itoa(a, s1);
+    printf("a = %s\n", s1);
+
+    itoa(b, s2);
+    printf("b = %s\n", s2);
+
+    itoa(c, s1);
+    printf("c = %s\n", s1);
+
+    return 0;
+}
