@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+    int q = 123;
+    int count = 3;
+    int cnt = count;
+    int result = 0;
+    int mul = 1;
+    int rem;
+
+    while (q != 0) {
+        rem = q % 10;
+        mul = 1;
+        cnt = count;
+        while (cnt != 0) {
+            mul = mul * rem;
+            cnt--;
+        }
+        result = result + mul;
+        q = q / 10;
+    }
+
+    printf("Result: %d\n", result);
+    return 0;
+}
